@@ -10,6 +10,7 @@
         <h1>Cadastro</h1>
         <form method="POST" action="">
             {{ userform|crispy }}
+            {{ perfilform|crispy }}
             {% csrf_token %}
             <div class="row">
                 <div class="col">
