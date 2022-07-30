@@ -5,4 +5,5 @@ db.sqlite3
 venv
 
 JS, CSS
-templates/static
+*.css
+*.js
