@@ -4,6 +4,9 @@ from django.views.generic.detail import DetailView
 from django.views import View
 from django.http import HttpResponse
 from django.contrib import messages
+from perfil.models import Perfil
+
+from perfil.models import Perfil
 from . import models
 from pprint import pprint
 
@@ -39,7 +42,7 @@ class AddToCart(View):
 
         variacao = get_object_or_404(models.Variacao, id=variacao_id)
         
-        variacao_estoque =  5
+        variacao_estoque  = variacao.estoque
         produto = variacao.produto
 
         produto_id = produto.id
@@ -154,7 +157,24 @@ class Cart(View):
 
 class ResumoDaCompra(View):
     def get(self, *args, **kwargs):
+        if not self.request.user.is_authenticated:
+            return redirect('perfil:criar')
 
+        perfil = Perfil.objects.filter(usuario=self.request.user).exists()
+
+        if not perfil:
+            messages.error(
+                self.request,
+                'Usuário sem Perfil.'
+            )
+            return redirect('perfil:criar')
+        
+        if not self.request.session.get('carrinho'):
+            messages.info(
+                self.request,
+                'Seu carrinho está Vazio.'
+            )
+            return redirect('produto:lista')
         contexto = {
             'usuario': self.request.user,
             'carrinho': self.request.session['carrinho']
