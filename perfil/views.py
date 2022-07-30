@@ -117,8 +117,7 @@ class Criar(BasePerfil):
 
         messages.success(self.request, 'Seu cadastro foi criado ou atualizado com sucesso.')
 
-        return redirect('perfil:criar')
-        return self.renderizar
+        return redirect('produto:cart')
 
 class Update(View):
     def get(self, *args, **kwargs):

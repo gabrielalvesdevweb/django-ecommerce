@@ -154,6 +154,12 @@ class Cart(View):
 
 class ResumoDaCompra(View):
     def get(self, *args, **kwargs):
-        return HttpResponse('Finalizar')
+
+        contexto = {
+            'usuario': self.request.user,
+            'carrinho': self.request.session['carrinho']
+        }
+
+        return render(self.request, 'produto/resumodacompra.html', contexto)
 
 
