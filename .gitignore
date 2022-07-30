@@ -4,6 +4,7 @@ db.sqlite3
 # Virtual Env
 venv
 
-JS, CSS
+# JS, CSS
 *.css
 *.js
+
